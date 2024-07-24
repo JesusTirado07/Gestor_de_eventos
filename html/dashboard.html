@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <!-- Incluir el Loader de Google Maps desde CDN -->
+    <script src="https://unpkg.com/@googlemaps/js-api-loader"></script>
+</head>
+<body>
+    <header>
+        <button id="addEventBtn">Agregar Evento</button>
+    </header>
+    <h1>Dashboard</h1>
+    <div id="eventsContainer"></div>
+
+    <!-- Modal for Adding Event -->
+    <div id="addEventModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agregar Evento</h2>
+            <form id="addEventForm">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="date">Fecha:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Hora:</label>
+                <input type="time" id="time" name="time" required>
+
+                <label for="description">Descripción:</label>
+                <textarea id="description" name="description"></textarea>
+
+                <label for="special_guests">Invitados Especiales:</label>
+                <input type="text" id="special_guests" name="special_guests">
+
+                <label for="cost">Costo:</label>
+                <input type="number" id="cost" name="cost" required>
+
+                <label for="location">Ubicación:</label>
+                <input type="text" id="location" name="location" required>
+                <!-- Botón para abrir el mapa y seleccionar la ubicación -->
+                <button type="button" id="openMapBtn">Seleccionar Ubicación en el Mapa</button>
+                <!-- Contenedor para el mapa de Google -->
+                <div id="map" style="height: 400px; width: 100%; display: none;"></div>
+
+                <label for="status">Estado:</label>
+                <select id="status" name="status" required>
+                    <option value="active">Activo</option>
+                    <option value="inactive">Inactivo</option>
+                    <option value="canceled">Cancelado</option>
+                    <option value="concluded">Concluido</option>
+                </select>
+
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Registering to an Event -->
+    <div id="registerEventModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Registrarse en Evento</h2>
+            <form id="registerEventForm">
+                <input type="hidden" id="registerEventId" name="event_id">
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOZe6Pc_SVA2ZHWX2RfEcOqVzZpHtWNBE&callback=initMap&v=weekly&solution_channel=GMP_CCS_geolocation_v2" async></script>
+</body>
+</html>
