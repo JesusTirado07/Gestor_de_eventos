@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    // Función para cargar y mostrar eventos existentes
     async function loadEvents() {
         try {
             const response = await fetch('http://localhost:3000/api/events', {
@@ -23,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const events = await response.json();
             const eventsContainer = document.getElementById('eventsContainer');
-            eventsContainer.innerHTML = ''; // Limpiar contenido existente
+            eventsContainer.innerHTML = '';
 
             events.forEach(event => {
                 const eventElement = document.createElement('div');
@@ -43,7 +42,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 eventsContainer.appendChild(eventElement);
             });
 
-            // Cargar la cantidad de registros por evento
             await loadRegistrationCounts();
         } catch (error) {
             console.error('Error cargando eventos:', error);
@@ -51,7 +49,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Función para cargar la cantidad de registros por evento
     async function loadRegistrationCounts() {
         try {
             const response = await fetch('http://localhost:3000/api/event_registrations/count', {
@@ -78,10 +75,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Cargar eventos al cargar la página
     await loadEvents();
 
-    // Modal logic
     const modal = document.getElementById('addEventModal');
     const btn = document.getElementById('addEventBtn');
     const span = document.getElementsByClassName('close')[0];
@@ -199,7 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         mapContainer.style.display = 'block';
 
         if (!map) {
-            
+
             const loader = new google.maps.plugins.loader.Loader({
                 apiKey: 'AIzaSyCOZe6Pc_SVA2ZHWX2RfEcOqVzZpHtWNBE',
                 version: 'weekly',
