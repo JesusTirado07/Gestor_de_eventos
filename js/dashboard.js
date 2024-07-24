@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (response.ok) {
                 alert('Evento agregado exitosamente');
-                await loadEvents(); // Recargar la lista de eventos
+                await loadEvents();
                 modal.style.display = 'none';
             } else {
                 const data = await response.json();
@@ -138,7 +138,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Modal logic for registering to events
     const registerEventModal = document.getElementById('registerEventModal');
     const registerEventForm = document.getElementById('registerEventForm');
 
@@ -178,7 +177,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (response.ok) {
                 alert('Registrado exitosamente en el evento');
                 registerEventModal.style.display = 'none';
-                await loadEvents(); // Recargar la lista de eventos
+                await loadEvents();
             } else {
                 const data = await response.json();
                 alert(data.message);
@@ -188,17 +187,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Lógica para inicializar y manejar el mapa
     let map;
     let marker;
+
     const openMapBtn = document.getElementById('openMapBtn');
     const mapContainer = document.getElementById('map');
     const locationInput = document.getElementById('location');
 
     openMapBtn.onclick = function() {
+
         mapContainer.style.display = 'block';
 
         if (!map) {
+            
             const loader = new google.maps.plugins.loader.Loader({
                 apiKey: 'AIzaSyCOZe6Pc_SVA2ZHWX2RfEcOqVzZpHtWNBE',
                 version: 'weekly',

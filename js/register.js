@@ -1,4 +1,5 @@
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
+
     e.preventDefault();
 
     const username = document.getElementById('username').value;
@@ -6,6 +7,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const password = document.getElementById('password').value;
 
     const response = await fetch('http://localhost:3000/api/auth/register', {
+
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -16,6 +18,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const data = await response.json();
 
     if (response.ok) {
+        
         alert('User registered successfully. Please login.');
         window.location.href = '../index.html';
     } else {
