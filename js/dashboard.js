@@ -148,39 +148,31 @@ document.addEventListener('DOMContentLoaded', async () => {
         registerEventModal.style.display = 'none';
     }
 
-    window.onclick = function(event) {
-        if (event.target == registerEventModal) {
-            registerEventModal.style.display = 'none';
-        }
-    }
-
-    registerEventForm.onsubmit = async function(event) {
-        event.preventDefault();
-
+    registerEventForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userId = 7; 
         const eventId = document.getElementById('registerEventId').value;
 
-        try {
-            const response = await fetch('http://localhost:3000/api/event_registrations', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ event_id: eventId })
-            });
+        const response = await fetch('http://localhost:3000/api/event_registrations/register', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user_id: userId, event_id: eventId })
+        });
 
-            if (response.ok) {
-                alert('Registrado exitosamente en el evento');
-                registerEventModal.style.display = 'none';
-                await loadEvents();
-            } else {
-                const data = await response.json();
-                alert(data.message);
-            }
-        } catch (error) {
-            console.error('Error al registrar en evento:', error);
+        const result = await response.json();
+
+        if (response.ok) {
+            alert('Registrado exitosamente');
+            registerEventModal.style.display = 'none';
+            const countSpan = document.querySelector(`.registrationCount[data-event-id="${eventId}"]`);
+            countSpan.textContent = parseInt(countSpan.textContent) + 1;
+        } else {
+            alert(result.message);
         }
-    }
+    });
 
     let map;
     let marker;
@@ -222,4 +214,5 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
     }
+
 });
